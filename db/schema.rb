@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2022_03_03_163230) do
     t.string "title"
     t.string "code"
     t.integer "stock", default: 0
-    t.decimal "price", precision: 10, scale: 2, default: "0.0"
+    t.integer "price", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
