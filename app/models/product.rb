@@ -13,6 +13,32 @@
 class Product < ApplicationRecord
   # Un modelo es la representacion de una tabla en la base de datos.
   # El modelo se represesenta a traves de una clase. (En este caso Product)
+
+  # Callbacks
+
+  # Un callback es un metodo que se ejecuta cuando un evento para nuestro objeto de tipo model ocurre.
+  # Podemos ejecutar callbacks antes o despues de ciertas acciones (crear, validar, actualizar, eliminar, etc)
+
+  # Métodos save
+  before_save :validate_product
+  after_save :send_notification
+
+
+  def total
+    self.price / 100
+  end
+
+  def validate_product
+    puts "\n\n\n>>> Un nuevo producto será añadido a almacén!"
+  end
+
+  # Método de instancia
+  # Detro de este metodo podemos acceder a los atributos o metodos del objeto.
+  def send_notification
+    puts "\n\n\n>>> Un nuevo producto fue añadido a almacén #{self.title} - $#{self.total} USD"
+  end
+
+
 end
 
 
