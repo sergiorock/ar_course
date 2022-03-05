@@ -29,7 +29,8 @@ class Product < ApplicationRecord
   validates :title, presence: { message: "El título no puede estar vacío" }
   validates :code, presence: { message: "El código no puede estar vacío" }
   validates :code, uniqueness: { message: "El código: %{value} ya existe" }
-  validates :price, length: { minimum: 3, maximum: 10, message: "El precio no puede ser 0" }
+  # validates :price, length: { minimum: 3, maximum: 10, message: "El precio no puede ser 0" }
+  validates :price, length: { in: 3..10, message: "El precio se encuentra fuera de rango (Min: 3, Max: 10" }, if: :has_price?
 
 
   def total
@@ -38,6 +39,10 @@ class Product < ApplicationRecord
 
   def discount?
     self.total < 5
+  end
+
+  def has_price?
+    !self.price.nil? && self.price > 0
   end
 
   private
