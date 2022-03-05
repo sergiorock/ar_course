@@ -19,10 +19,17 @@ class Product < ApplicationRecord
   # Un callback es un metodo que se ejecuta cuando un evento para nuestro objeto de tipo model ocurre.
   # Podemos ejecutar callbacks antes o despues de ciertas acciones (crear, validar, actualizar, eliminar, etc)
 
-  # Métodos save
+  # Callbacks sobre el Método save
   before_save :validate_product
   after_save :send_notification
   after_save :push_notification, if: :discount?
+
+
+  # Validaciones
+  validates :title, presence: { message: "El título no puede estar vacío" }
+  validates :code, presence: { message: "El código no puede estar vacío" }
+  validates :code, uniqueness: { message: "El código: %{value} ya existe" }
+  validates :price, length: { minimum: 3, maximum: 10, message: "El precio no puede ser 0" }
 
 
   def total
