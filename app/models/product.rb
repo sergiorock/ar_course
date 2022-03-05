@@ -22,12 +22,18 @@ class Product < ApplicationRecord
   # Métodos save
   before_save :validate_product
   after_save :send_notification
+  after_save :push_notification, if: :discount?
 
 
   def total
     self.price / 100
   end
 
+  def discount?
+    self.total < 5
+  end
+
+  private
   def validate_product
     puts "\n\n\n>>> Un nuevo producto será añadido a almacén!"
   end
@@ -36,6 +42,11 @@ class Product < ApplicationRecord
   # Detro de este metodo podemos acceder a los atributos o metodos del objeto.
   def send_notification
     puts "\n\n\n>>> Un nuevo producto fue añadido a almacén #{self.title} - $#{self.total} USD"
+  end
+
+  # Precio > 5 
+  def push_notification
+    puts "\n\n\n>>> Un nuevo producto en descuento ya se encuentra disponible #{self.title}"
   end
 
 
