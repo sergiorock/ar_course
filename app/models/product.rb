@@ -35,6 +35,11 @@ class Product < ApplicationRecord
   # Custom validations
   validate :code_validate
 
+  # Validando desde una clase
+  # Son ideales cuando implementamos modelos que hereden de otros, asi no repetimos codigo
+  validate_with ProductValidator
+
+
 
 
 
