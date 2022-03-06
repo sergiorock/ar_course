@@ -32,6 +32,11 @@ class Product < ApplicationRecord
   # validates :price, length: { minimum: 3, maximum: 10, message: "El precio no puede ser 0" }
   validates :price, length: { in: 3..10, message: "El precio se encuentra fuera de rango (Min: 3, Max: 10" }, if: :has_price?
 
+  # Custom validations
+  validate :code_validate
+
+
+
 
   def total
     self.price / 100
@@ -46,6 +51,13 @@ class Product < ApplicationRecord
   end
 
   private
+
+  def code_validate
+    if self.code.nil? || self.code.length < 3
+      self.errors.add(:code, "El código debe tener al menos 3 caracteres")
+    end
+  end
+
   def validate_product
     puts "\n\n\n>>> Un nuevo producto será añadido a almacén!"
   end
