@@ -37,7 +37,7 @@ class Product < ApplicationRecord
 
   # Validando desde una clase
   # Son ideales cuando implementamos modelos que hereden de otros, asi no repetimos codigo
-  validate_with ProductValidator
+  validates_with ProductValidator
 
 
 
